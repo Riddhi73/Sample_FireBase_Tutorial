@@ -12,15 +12,22 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
     private Button logout,add;
@@ -67,12 +74,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull @org.jetbrains.annotations.NotNull DataSnapshot snapshot) {
                 list.clear();
-                   for (DataSnapshot snapshot1 : snapshot.getChildren()){
-                       Information information = snapshot1.getValue(Information.class);
-                       String txt = information.getName()+ ":" + information.getEmail();
-                       list.add(txt);
-                   }
-                   adapter.notifyDataSetChanged();
+                for (DataSnapshot snapshot1 : snapshot.getChildren()){
+                    Information information = snapshot1.getValue(Information.class);
+                    String txt = information.getName()+ ":" + information.getEmail();
+                    list.add(txt);
+                }
+                adapter.notifyDataSetChanged();
             }
 
             @Override
@@ -80,6 +87,32 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+        FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+        Map<String,Object> city = new HashMap<>();
 
+        city.put("Name", "sdbhfshd");
+        city.put("State", "sdbfhfshd");
+        city.put("Country", "sdbhfgshd");
+
+        firebaseFirestore.collection("Cities").document("JSR").set(city).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull @NotNull Task<Void> task) {
+                if (task.isSuccessful()){
+                    Toast.makeText(MainActivity.this, "", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        Map<String,Object> data = new HashMap<>();
+        data.put("Capital",false);
+        firebaseFirestore.collection("Cities").document("JSR").set(data, SetOptions.merge()).addOnCompleteListener(
+                new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull @NotNull Task<Void> task) {
+                        if (task.isSuccessful()){
+                            Toast.makeText(MainActivity.this, "Merge Successful", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
+        );
     }
 }
