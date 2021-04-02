@@ -20,6 +20,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
 
@@ -103,16 +104,16 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         Map<String,Object> data = new HashMap<>();
-        data.put("Capital",false);
-        firebaseFirestore.collection("Cities").document("JSR").set(data, SetOptions.merge()).addOnCompleteListener(
-                new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull @NotNull Task<Void> task) {
-                        if (task.isSuccessful()){
-                            Toast.makeText(MainActivity.this, "Merge Successful", Toast.LENGTH_SHORT).show();
-                        }
-                    }
+        data.put("Name","Tokyo");
+        data.put("Capital","Japan");
+        firebaseFirestore.collection("Cities").add(data).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+            @Override
+            public void onComplete(@NonNull @NotNull Task<DocumentReference> task) {
+                if (task.isSuccessful()){
+                    Toast.makeText(MainActivity.this, "Values added successfully", Toast.LENGTH_SHORT).show();
                 }
-        );
+            }
+        });
+
     }
 }
