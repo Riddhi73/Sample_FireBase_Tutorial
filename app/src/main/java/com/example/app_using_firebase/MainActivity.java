@@ -88,32 +88,9 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-        FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
-        Map<String,Object> city = new HashMap<>();
-
-        city.put("Name", "sdbhfshd");
-        city.put("State", "sdbfhfshd");
-        city.put("Country", "sdbhfgshd");
-
-        firebaseFirestore.collection("Cities").document("JSR").set(city).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull @NotNull Task<Void> task) {
-                if (task.isSuccessful()){
-                    Toast.makeText(MainActivity.this, "", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-        Map<String,Object> data = new HashMap<>();
-        data.put("Name","Tokyo");
-        data.put("Capital","Japan");
-        firebaseFirestore.collection("Cities").add(data).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
-            @Override
-            public void onComplete(@NonNull @NotNull Task<DocumentReference> task) {
-                if (task.isSuccessful()){
-                    Toast.makeText(MainActivity.this, "Values added successfully", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+        DocumentReference documentReference = FirebaseFirestore.getInstance().collection("Cities")
+                .document("JSR");
+        documentReference.update("Capital",true);
 
     }
 }
