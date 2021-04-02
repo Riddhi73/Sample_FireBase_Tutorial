@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this, "No Name Entered", Toast.LENGTH_SHORT).show();
                 }else{
                     Toast.makeText(MainActivity.this, "Added", Toast.LENGTH_SHORT).show();
-                    FirebaseDatabase.getInstance().getReference().child("Riddhiman").push().child("Name").setValue(nametxt);
+                    FirebaseDatabase.getInstance().getReference().child("Riddhiman").push().child("name").setValue(nametxt);
                 }
             }
         });
@@ -62,13 +62,15 @@ public class MainActivity extends AppCompatActivity {
         ArrayAdapter adapter = new ArrayAdapter(this,R.layout.list_items,list);
 
         listView.setAdapter(adapter);
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("info");
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Riddhiman");
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @org.jetbrains.annotations.NotNull DataSnapshot snapshot) {
                 list.clear();
                    for (DataSnapshot snapshot1 : snapshot.getChildren()){
-                       list.add(snapshot1.getValue().toString());
+                       Information information = snapshot1.getValue(Information.class);
+                       String txt = information.getName()+ ":" + information.getEmail();
+                       list.add(txt);
                    }
                    adapter.notifyDataSetChanged();
             }
