@@ -1,29 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="12dp"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".RegisterActivity">
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:src="@drawable/ic_logo"/>
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/edit_txt_bg"
+        android:hint="UserName"
+        android:padding="15dp"
+        android:id="@+id/reg_username"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/edit_txt_bg"
+        android:hint="Full Name"
+        android:padding="15dp"
+        android:id="@+id/reg_fullname"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/edit_txt_bg"
         android:hint="Email"
-        android:id="@+id/emailEt"
-        android:layout_marginTop="100dp"/>
+        android:padding="15dp"
+        android:id="@+id/reg_email"/>
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Password"
-        android:id="@+id/passwordEt"
-        android:layout_marginTop="100dp"
-        android:layout_below="@+id/emailEt"/>
+        android:layout_marginTop="15dp"
+        android:background="@drawable/edit_txt_bg"
+        android:hint="Pasword"
+        android:padding="15dp"
+        android:id="@+id/reg_password"/>
     <Button
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/Registerbtn"
-        android:layout_below="@+id/passwordEt"
-        android:text="register"
-        android:layout_marginTop="100dp"/>
+        android:layout_marginTop="10dp"
+        android:text="REGISTER"
+        android:background="@drawable/button_bg"
+        android:id="@+id/regBtn"
+        android:padding="10dp" />
 
-</RelativeLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Already a User? Log In"
+        android:layout_marginTop="15dp"
+        android:id="@+id/login_user"/>
+
+
+
+</LinearLayout>
